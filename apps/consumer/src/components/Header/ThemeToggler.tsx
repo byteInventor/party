@@ -1,11 +1,20 @@
-import { useTheme } from "next-themes";
+"use client";
+
+import { useThemeContext } from "@/contexts/theme-context";
 
 const ThemeToggler = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme, toggleTheme, isReady } = useThemeContext();
+
+  if (!isReady) {
+    return null;
+  }
+
   return (
-    <button aria-label='theme toggler'
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="flex items-center justify-center text-black rounded-full cursor-pointer bg-gray-2 dark:bg-dark-bg h-9 w-9 dark:text-white md:h-14 md:w-14"
+    <button
+      type="button"
+      aria-label="Toggle theme"
+      onClick={toggleTheme}
+      className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-gray-2 text-black dark:bg-dark-bg dark:text-white md:h-14 md:w-14"
     >
       <svg
         viewBox="0 0 23 23"

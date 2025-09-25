@@ -1,16 +1,19 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
+import { useThemeContext } from "@/contexts/theme-context";
+import { useEffect, useState } from "react";
 
 const NewsLatterBox = () => {
-  const { theme } = useTheme();
+  const { theme, isReady } = useThemeContext();
   const [color, setColor] = useState("#fff");
 
   useEffect(() => {
-    // Update color client-side after theme is available
+    if (!isReady) {
+      return;
+    }
+
     setColor(theme === "light" ? "#00a63d" : "#fff");
-  }, [theme]);
+  }, [isReady, theme]);
 
   return (
     <div className="shadow-three dark:bg-gray-dark relative z-10 rounded-xs bg-white p-8 sm:p-11 lg:p-8 xl:p-11">

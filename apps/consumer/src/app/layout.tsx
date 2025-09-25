@@ -3,10 +3,10 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ScrollToTop from "@/components/ScrollToTop";
-import { Inter } from "next/font/google";
 import "../styles/index.css";
+import { Providers } from "./providers";
 
-const inter = Inter({ subsets: ["latin"] });
+const bodyClassName = "bg-[#FCFCFC] dark:bg-black font-sans";
 
 export default function RootLayout({
   children,
@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <head />
-      <body className={`bg-[#FCFCFC] dark:bg-black ${inter.className}`}>
+      <body className={bodyClassName}>
         <Providers>
           <Header />
           {children}
@@ -27,6 +27,4 @@ export default function RootLayout({
     </html>
   );
 }
-
-import { Providers } from "./providers";
 
