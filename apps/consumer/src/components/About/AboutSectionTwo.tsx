@@ -33,7 +33,7 @@ const AboutSectionTwo = () => {
                   Team: 
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  Your bio + "Meet Our Eco-Guides" (add photos later)
+                  Your bio + &ldquo;Meet Our Eco-Guides&rdquo; (add photos later)
                 </p>
               </div>
               
