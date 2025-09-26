@@ -5,16 +5,20 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.backend
+      target: development
     container_name: party_backend
     ports:
       - "4000:4000"
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
       DB_HOST: db
       DB_PORT: 5432
       DB_USER: user
       DB_PASSWORD: password
       DB_NAME: party
+    volumes:
+      - ./apps/backend:/app
+      - /app/node_modules
     depends_on:
       - db
 
@@ -22,12 +26,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.admin
+      target: development
     container_name: party_admin
     ports:
       - "3000:3000"
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
       BACKEND_URL: http://backend:4000
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+    volumes:
+      - ./apps/admin:/app
+      - /app/node_modules
     depends_on:
       - backend
 
@@ -35,12 +45,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.consumer
+      target: development
     container_name: party_consumer
     ports:
       - "3001:3000"
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
       BACKEND_URL: http://backend:4000
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+    volumes:
+      - ./apps/consumer:/app
+      - /app/node_modules
     depends_on:
       - backend
 
