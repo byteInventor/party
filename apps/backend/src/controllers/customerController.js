@@ -4,7 +4,7 @@ const listCustomers = async (req, res) => {
   const customers = await User.findAll({
     where: { role: 'consumer' },
     include: [{ model: Booking, as: 'bookings' }],
-    order: [['created_at', 'DESC']],
+    order: [['createdAt', 'DESC']],
   });
   res.json(customers);
 };

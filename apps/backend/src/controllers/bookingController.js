@@ -44,7 +44,7 @@ const listMyBookings = async (req, res) => {
       { model: Event, as: 'event' },
       { model: Payment, as: 'payments' },
     ],
-    order: [['created_at', 'DESC']],
+    order: [['createdAt', 'DESC']],
   });
   res.json(bookings);
 };
@@ -55,7 +55,7 @@ const listAllBookings = async (req, res) => {
       { model: Event, as: 'event' },
       { model: Payment, as: 'payments' },
     ],
-    order: [['created_at', 'DESC']],
+    order: [['createdAt', 'DESC']],
   });
   res.json(bookings);
 };

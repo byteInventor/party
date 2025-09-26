@@ -4,7 +4,7 @@ const listEvents = async (req, res) => {
   const events = await Event.findAll({
     where: req.query.includeInactive === 'true' ? {} : { isActive: true },
     include: [{ model: EventAddon, as: 'addons' }],
-    order: [['created_at', 'DESC']],
+    order: [['createdAt', 'DESC']],
   });
   res.json(events);
 };

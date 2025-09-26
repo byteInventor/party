@@ -29,7 +29,7 @@ const verifyOtp = async ({ mobileNumber, code, context = 'login' }) => {
       expiresAt: { [Op.gt]: now },
       consumedAt: null,
     },
-    order: [['created_at', 'DESC']],
+    order: [['createdAt', 'DESC']],
   });
 
   if (!otpRequest) return { valid: false, reason: 'not_found' };

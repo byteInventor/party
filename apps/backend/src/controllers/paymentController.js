@@ -54,7 +54,7 @@ const confirmPayment = async (req, res) => {
 };
 
 const listPayments = async (req, res) => {
-  const payments = await Payment.findAll({ order: [['created_at', 'DESC']] });
+  const payments = await Payment.findAll({ order: [['createdAt', 'DESC']] });
   res.json(payments);
 };
 

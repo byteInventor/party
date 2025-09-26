@@ -2,7 +2,7 @@ const { Survey, SurveyResponse } = require('../models');
 
 const listSurveys = async (req, res) => {
   const where = req.query.includeInactive === 'true' ? {} : { isActive: true };
-  const surveys = await Survey.findAll({ where, order: [['created_at', 'DESC']] });
+  const surveys = await Survey.findAll({ where, order: [['createdAt', 'DESC']] });
   res.json(surveys);
 };
 
