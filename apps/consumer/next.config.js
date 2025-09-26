@@ -9,6 +9,17 @@ const nextConfig = {
       },
     ],
   },
+  webpack: (config) => {
+    const webpack = require("webpack");
+
+    config.plugins.push(
+      new webpack.ProvidePlugin({
+        React: require.resolve("react"),
+      })
+    );
+
+    return config;
+  },
 };
 
 module.exports = nextConfig;

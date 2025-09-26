@@ -1,12 +1,6 @@
+"use client";
+
 import Link from "next/link";
-
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Error Page | Eco Farm School",
-  description: "This is Error Page for Eco Farm School",
-  // other metadata
-};
 
 const ErrorPage = () => {
   return (
