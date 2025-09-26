@@ -1,16 +1,27 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const NewsLatterBox = () => {
-  const { theme } = useTheme();
-  const [color, setColor] = useState("#fff");
+  const [color, setColor] = useState("#00a63d");
 
   useEffect(() => {
-    // Update color client-side after theme is available
-    setColor(theme === "light" ? "#00a63d" : "#fff");
-  }, [theme]);
+    if (typeof document === "undefined") {
+      return;
+    }
+
+    const update = () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      setColor(isDark ? "#fff" : "#00a63d");
+    };
+
+    update();
+
+    const observer = new MutationObserver(update);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="shadow-three dark:bg-gray-dark relative z-10 rounded-xs bg-white p-8 sm:p-11 lg:p-8 xl:p-11">
