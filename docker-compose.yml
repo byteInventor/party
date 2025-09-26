@@ -7,15 +7,12 @@ services:
       dockerfile: Dockerfile.backend
       target: development
     container_name: party_backend
-    ports:
-      - "4000:4000"
+    env_file:
+      - docker-compose.env
     environment:
-      NODE_ENV: development
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: user
-      DB_PASSWORD: password
-      DB_NAME: party
+      PORT: ${BACKEND_PORT}
+    ports:
+      - "${BACKEND_PORT:-4000}:4000"
     volumes:
       - ./apps/backend:/app
       - /app/node_modules
@@ -28,13 +25,12 @@ services:
       dockerfile: Dockerfile.admin
       target: development
     container_name: party_admin
-    ports:
-      - "3000:3000"
+    env_file:
+      - docker-compose.env
     environment:
-      NODE_ENV: development
-      BACKEND_URL: http://backend:4000
-      CHOKIDAR_USEPOLLING: "true"
-      WATCHPACK_POLLING: "true"
+      PORT: ${ADMIN_PORT}
+    ports:
+      - "${ADMIN_PORT:-3000}:3000"
     volumes:
       - ./apps/admin:/app
       - /app/node_modules
@@ -47,13 +43,12 @@ services:
       dockerfile: Dockerfile.consumer
       target: development
     container_name: party_consumer
-    ports:
-      - "3001:3000"
+    env_file:
+      - docker-compose.env
     environment:
-      NODE_ENV: development
-      BACKEND_URL: http://backend:4000
-      CHOKIDAR_USEPOLLING: "true"
-      WATCHPACK_POLLING: "true"
+      PORT: ${CONSUMER_PORT}
+    ports:
+      - "${CONSUMER_PORT:-3001}:3000"
     volumes:
       - ./apps/consumer:/app
       - /app/node_modules
@@ -64,12 +59,10 @@ services:
     image: postgres:16
     container_name: postgres
     restart: always
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: party
+    env_file:
+      - docker-compose.env
     ports:
-      - "5432:5432"
+      - "${DB_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -77,9 +70,8 @@ services:
     image: dpage/pgadmin4:latest
     container_name: pgadmin
     restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: nnandan15@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: secret
+    env_file:
+      - docker-compose.env
     ports:
       - "8080:80"
     depends_on:
